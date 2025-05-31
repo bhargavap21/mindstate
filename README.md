@@ -1,4 +1,4 @@
-# Real-Time EEG Classification with Muse
+# MindState
 
 A Python-based system for real-time EEG classification using the Muse headset. This project enables real-time classification of mental states (relaxed vs. concentrating) using EEG data from the Muse headband.
 
