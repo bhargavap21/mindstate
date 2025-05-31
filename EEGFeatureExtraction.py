@@ -1,16 +1,3 @@
-"""
-## Version history:
-
-2018:
-	Original script by Dr. Luis Manso [lmanso], Aston University
-
-2019, June:
-	Revised, commented and updated by Dr. Felipe Campelo [fcampelo], Aston University
-	(f.campelo@aston.ac.uk / fcampelo@gmail.com)
-
-2019, July:
-    Modified. small modifications for real time EEG classification application by Jodie Ashford, Student Aston University
-"""
 
 # Commented since not used. [fcampelo]
 # import sys

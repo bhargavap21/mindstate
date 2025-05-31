@@ -1,16 +1,3 @@
-"""
-Modified version of the MuseLSL stream function.
-Copyright © 2018, authors of muselsl - All rights reserved.
-Version History:
-2019, May:
-   Original script by Alexandre Barachant, Dano Morrison, Hubert Banville, Jason Kowaleski ,Uri Shaked,
-   Sylvain Chevallier and Juan Jesús Torre Tresols.
-  doi = 10.5281/zenodo.3228861,
-  url = https://doi.org/10.5281/zenodo.3228861
-2019:
-    Modified by Jodie Ashford, Aston University
-"""
-
 from pylsl import StreamInfo, StreamOutlet
 from functools import partial
 from muselsl.muse import Muse

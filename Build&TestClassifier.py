@@ -1,12 +1,3 @@
-"""
-## Version history:
-2019:
-   Original script by Jodie Ashford [ashfojsm], Aston University
-2020, January:
-	Revised, and updated by Jodie Ashford [ashfojsm], Aston University
-	(ashfojsm@aston.ac.uk)
-"""
-
 import pandas as pd
 import FeatureSelection as fs
 from sklearn.ensemble import RandomForestClassifier

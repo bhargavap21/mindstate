@@ -1,31 +1,36 @@
 # Real-Time EEG Classification with Muse
 
-A real-time EEG classification system that uses a Muse headset to detect whether a person is in a relaxed or concentrated state.
+A Python-based system for real-time EEG classification using the Muse headset. This project enables real-time classification of mental states (relaxed vs. concentrating) using EEG data from the Muse headband.
+
+## Author
+
+**Bhargava Perumalla**
 
 ## Features
 
-- Real-time EEG data processing
-- Machine learning-based state classification (Relaxed vs. Concentrated)
-- Live confidence scores and odds ratios
-- Support for both real Muse headset and mock data
-- Modern scikit-learn compatibility
-- Apple Silicon (M1/M2) support
+- Real-time EEG data acquisition from Muse headset
+- Feature extraction and selection from EEG signals
+- Machine learning-based classification of mental states
+- Support for both real-time classification and model training
+- Mock data streaming for testing without a Muse headset
+- High accuracy classification (96.4% with the provided model)
 
 ## Requirements
 
 - Python 3.9 or higher
-- Muse headset (optional, can use mock data)
-- Bluetooth connectivity (for real Muse headset)
+- Muse headset (or mock data for testing)
+- Bluetooth connectivity
+- BlueMuse application (for Muse headset connection)
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/real-time-eeg-classification.git
+git clone https://github.com/bhargavap21/real-time-eeg-classification.git
 cd real-time-eeg-classification
 ```
 
-2. Create a virtual environment (recommended):
+2. Create and activate a virtual environment:
 ```bash
 python -m venv eeg-venv
 source eeg-venv/bin/activate  # On Windows: eeg-venv\Scripts\activate
@@ -36,55 +41,97 @@ source eeg-venv/bin/activate  # On Windows: eeg-venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+## Project Structure
+
+### Core Files
+- `main.py` - Main program for real-time classification
+- `Build&TestClassifier.py` - Model training and testing
+- `EEGFeatureExtraction.py` - Feature extraction from EEG data
+- `FeatureSelection.py` - Feature selection for model training
+- `ModifiedStream.py` - Muse headset connection handling
+- `ModifiedRecord.py` - EEG data recording
+- `MockDataStream.py` - Mock data generation for testing
+
+### Data and Models
+- `CSV files/` - Directory containing training data
+- `Models/` - Directory containing trained models
+
 ## Usage
 
-1. Connect your Muse headset:
-   - Turn on the Muse headset
-   - Put it in pairing mode (blinking light)
-   - Ensure Bluetooth is enabled on your computer
+### Real-Time Classification
 
-2. Run the main script:
+1. Ensure BlueMuse is running and your Muse headset is connected
+2. Run the main program:
 ```bash
 python main.py
 ```
 
-3. When prompted, enter your Muse's Bluetooth address (e.g., 00:55:da:b3:9a:2c)
+The program will:
+- Connect to your Muse headset
+- Stream EEG data in real-time
+- Extract features from the data
+- Classify the mental state (relaxed vs. concentrating)
+- Display the results in real-time
 
-4. The program will start classifying your mental state in real-time:
-   - "State: Relaxed" - When you're in a relaxed state
-   - "State: Concentrating" - When you're in a concentrated state
-   - "State: Unknown" - When the state is unclear
+### Model Training
 
-5. Press Ctrl+C to stop the program
+1. Prepare your training data in CSV format
+2. Run the training script:
+```bash
+python Build&TestClassifier.py
+```
 
-## Using Mock Data
+This will:
+- Load the training data
+- Perform feature selection
+- Train a Random Forest classifier
+- Save the trained model
+- Display the model's accuracy
 
-If you don't have a Muse headset, you can use mock data for testing:
-1. Run the program
-2. When connection fails, choose option 2 to use mock data
+### Testing Without Muse Headset
+
+If you don't have a Muse headset, the program can use mock data:
+1. Run the main program
+2. When prompted for connection, choose option 2 for mock data
+3. The program will run with simulated EEG data
 
 ## Model Performance
 
 The current model achieves:
-- Overall accuracy: 96.40%
-- Balanced performance for both relaxed and concentrated states
-- High precision and recall for both classes
+- Overall accuracy: 96.4%
+- Real-time classification of mental states
+- Confidence scores for predictions
 
-## Project Structure
+## Troubleshooting
 
-- `main.py` - Main program for real-time classification
-- `EEGFeatureExtraction.py` - Feature extraction from EEG data
-- `FeatureSelection.py` - Feature selection for the model
-- `ModifiedStream.py` - Muse headset streaming interface
-- `ModifiedRecord.py` - Data recording functionality
-- `MockDataStream.py` - Mock data generation for testing
-- `Models/` - Directory containing trained models
-- `CSV files/` - Directory containing training data
+### Muse Connection Issues
+1. Ensure Bluetooth is enabled
+2. Check if Muse is in pairing mode
+3. Verify BlueMuse is running
+4. Try moving closer to the Muse
+5. Restart the Muse headset
+6. Restart your computer's Bluetooth
+
+### Program Errors
+1. Verify all dependencies are installed
+2. Check if the model file exists in the Models directory
+3. Ensure training data is in the correct format
+4. Check if BlueMuse is running (for real-time classification)
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. 
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Acknowledgments
+
+- Original Muse LSL implementation
+- Contributors to the scikit-learn library
+- The Muse headset development team

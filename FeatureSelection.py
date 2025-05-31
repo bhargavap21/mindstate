@@ -1,9 +1,3 @@
-"""
-## Version history:
-2019:
-   Original script by Jodie Ashford [ashfojsm], Aston University
-"""
-
 import pandas as pd
 from sklearn import feature_selection as fs
 

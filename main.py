@@ -81,45 +81,45 @@ def main(clf_path, training_file_path):
             inlet = MockStreamInlet()
     else:
         # Finds existing LSL stream & starts acquiring data
-        inlet = MyRecord.start_stream()
+    inlet = MyRecord.start_stream()
 
     print("\n=== Starting EEG Classification ===")
     print("Press Ctrl+C to stop the program\n")
 
     try:
-        while True:
-            """
-            Generates a 2D array containing features as columns and time windows as rows and a list containing all feature names
-            cols_to_ignore: -1 to remove last column from csv (remove Right AUX column) 
-            """
-            # Feature extraction
-            results, names = generate_feature_vectors_from_samples(MyRecord.record_numpy(2, inlet), 150, 1, cols_to_ignore=-1)
-            # Code commented below used for testing as it runs the script without needing the Muse headset
-            # results, names = generate_feature_vectors_from_samples(MyRecord.record_numpy(2, MockStreamInlet()), 150, 1, cols_to_ignore=-1)
-            data = pd.DataFrame(data=results, columns=names)
+    while True:
+        """
+        Generates a 2D array containing features as columns and time windows as rows and a list containing all feature names
+        cols_to_ignore: -1 to remove last column from csv (remove Right AUX column) 
+        """
+        # Feature extraction
+        results, names = generate_feature_vectors_from_samples(MyRecord.record_numpy(2, inlet), 150, 1, cols_to_ignore=-1)
+        # Code commented below used for testing as it runs the script without needing the Muse headset
+        # results, names = generate_feature_vectors_from_samples(MyRecord.record_numpy(2, MockStreamInlet()), 150, 1, cols_to_ignore=-1)
+        data = pd.DataFrame(data=results, columns=names)
 
-            # Feature selection
-            selected_data = data[selected_features].copy()
+        # Feature selection
+        selected_data = data[selected_features].copy()
 
-            # Classification
-            probability = clf.predict_proba(selected_data)
-            for sample in probability:
+        # Classification
+        probability = clf.predict_proba(selected_data)
+        for sample in probability:
                 print("\r", end="")  # Clear current line
                 if sample[0] > 0.5:
                     print("State: Relaxed", end="")
-                    if sample[1] == 0:
-                        odds = sys.maxsize
-                    else:
-                        odds = round((sample[0] / sample[1]), 2)
+                if sample[1] == 0:
+                    odds = sys.maxsize
+                else:
+                    odds = round((sample[0] / sample[1]), 2)
                     print(f" (Confidence: {sample[0]:.2%}, Odds: {odds})", end="")
                 elif sample[1] > 0.5:
                     print("State: Concentrating", end="")
-                    if sample[0] == 0:
-                        odds = sys.maxsize
-                    else:
-                        odds = round((sample[1] / sample[0]), 2)
-                    print(f" (Confidence: {sample[1]:.2%}, Odds: {odds})", end="")
+                if sample[0] == 0:
+                    odds = sys.maxsize
                 else:
+                    odds = round((sample[1] / sample[0]), 2)
+                    print(f" (Confidence: {sample[1]:.2%}, Odds: {odds})", end="")
+            else:
                     print("State: Unknown", end="")
                 sys.stdout.flush()  # Ensure output is displayed immediately
 
